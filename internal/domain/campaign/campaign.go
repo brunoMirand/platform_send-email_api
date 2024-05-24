@@ -1,6 +1,7 @@
 package campaign
 
 import (
+	"errors"
 	"time"
 
 	"github.com/google/uuid"
@@ -18,7 +19,11 @@ type Campaign struct {
 	CreatedAt time.Time
 }
 
-func NewCampaign(name string, content string, emails []string) *Campaign {
+func NewCampaign(name string, content string, emails []string) (*Campaign, error) {
+	if name == "" {
+		return nil, errors.New("field <name> is required")
+	}
+
 	id := uuid.New()
 	contacts := make([]Contact, len(emails))
 	for index, email := range emails {
@@ -31,5 +36,5 @@ func NewCampaign(name string, content string, emails []string) *Campaign {
 		Content:   content,
 		Contacts:  contacts,
 		CreatedAt: time.Now(),
-	}
+	}, nil
 }

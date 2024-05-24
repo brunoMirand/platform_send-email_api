@@ -1,0 +1,11 @@
+go mod init <name_project>
+
+- golint
+- go vet
+- staticcheck
+go install honnef.co/go/tools/cmd/staticcheck@latest
+staticcheck ./...
+
+- golangci-lint
+go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+golangci-lint run
