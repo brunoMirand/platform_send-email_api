@@ -17,9 +17,10 @@ func TestNewCampaign(t *testing.T) {
 	assert := assert.New(t)
 
 	//when
-	sut, _ := NewCampaign(name, content, contacts)
+	sut, err := NewCampaign(name, content, contacts)
 
 	//then
+	assert.Nil(err)
 	assert.Equal(sut.Name, "Aprenda PHP em 2024.")
 	assert.Equal(sut.Content, "Seja um dev destaque todas as semanas da sprint.")
 }
@@ -32,5 +33,5 @@ func TestShouldErrorWhenCreateNewCampaign(t *testing.T) {
 	_, err := NewCampaign("", content, contacts)
 
 	//then
-	assert.Equal("field <name> is required", err.Error())
+	assert.Equal("name is required with min 5", err.Error())
 }
